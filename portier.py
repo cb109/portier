@@ -79,7 +79,8 @@ def check(args):
 
     portRange = getPortRange(args.port)
     numTasks = len(portRange)
-    chunks = list(chunkify(portRange, args.instances or MAX_THREADS))
+    numChunks = args.instances or min([numTasks, MAX_THREADS])
+    chunks = list(chunkify(portRange, numChunks))
     counter = ThreadedCounter(startAt=0, maxCount=numTasks)
 
     threads = []
