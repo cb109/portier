@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import socket
 import logging
 import argparse
@@ -107,7 +110,7 @@ def report(result):
     """Logs open ports to stdout."""
     openPorts = list(filter(lambda itm: itm[1] is True, result.items()))
     log.info("------------------------------")
-    log.info("{num} ports habe been scanned.".format(num=len(result.items())))
+    log.info("{num} ports have been scanned.".format(num=len(result.items())))
     log.info("{num} open ports found.".format(num=len(openPorts)))
     log.info("------------------------------")
     for port, state in result.items():

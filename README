@@ -1,1 +1,12 @@
+portier
+-------
 
+A small tool to check a host address for open ports.
+
+Default address is localhost. Use like:
+
+    python portier.py <portrange>
+
+    python portier.py <portrange> --address my/host/address
+
+with portrange being a single port or a range like: 435 or 50-200.
