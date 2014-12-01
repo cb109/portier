@@ -18,17 +18,19 @@ MAX_THREADS = 200
 
 class ThreadedCounter(object):
     """A counter to be used in multiple threads."""
-    def __init__(self, startAt=0, maxCount=100):
+    def __init__(self, startAt=0, maxCount=100, verbose=False):
         self.current = startAt
         self.max = maxCount
+        self.verbose = verbose
         self.lock = threading.Lock()
 
     def clock(self):
         with self.lock:
             self.current += 1
             percent = self.current / (self.max / 100.0)
-            log.info("{v}/{m} - {p:.2f}%".format(
-                v=self.current, m=self.max, p=percent))
+            if self.verbose:
+                log.info("{v}/{m} - {p:.2f}%".format(
+                    v=self.current, m=self.max, p=percent))
 
 
 def chunkify(array, n):
@@ -81,7 +83,10 @@ def check(args):
     numTasks = len(portRange)
     numChunks = args.instances or min([numTasks, MAX_THREADS])
     chunks = list(chunkify(portRange, numChunks))
-    counter = ThreadedCounter(startAt=0, maxCount=numTasks)
+    counter = ThreadedCounter(
+        startAt=0,
+        maxCount=numTasks,
+        verbose=args.verbose)
 
     threads = []
     for chunk in chunks:
@@ -105,6 +110,7 @@ def setupArgParser():
     parser.add_argument("-i", "--instances", type=int,
         help=("number of threads to use (uses many by default, "
             "use this setting to decrease the amount"))
+    parser.add_argument("-v", "--verbose", action="store_true")
     return parser
 
 
