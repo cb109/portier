@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
     name="portier",
-    version="0.1.0",
+    version="0.1.1",
     description=(
         "A tool to check a host address "
         "for open ports using multiple threads."

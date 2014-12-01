@@ -8,7 +8,7 @@ import threading
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s [%(levelname)s] %(name)s | %(message)s',
+    format='%(asctime)s %(levelname)s %(name)s | %(message)s',
     datefmt='%H:%M:%S')
 log = logging.getLogger("portier")
 
@@ -103,7 +103,8 @@ def setupArgParser():
     parser.add_argument("-a", "--address", type=str, default="localhost",
         help="host to check  [default: localhost]")
     parser.add_argument("-i", "--instances", type=int,
-        help="number of instances (processes/threads) to use")
+        help=("number of threads to use (uses many by default, "
+            "use this setting to decrease the amount"))
     return parser
 
 
